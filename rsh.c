@@ -48,8 +48,8 @@ void* messageListener(void *arg) {
 	// Incoming message from [source]: [message]
 	// put an end of line at the end of the message
 	int userFIFO = open(uName,O_RDONLY);
+	struct message req;
 	while(1){
-		struct message req;
 		if (read(userFIFO,&req,sizeof(struct message))!=sizeof(struct message)) {
 			continue;
 			}
@@ -87,8 +87,7 @@ int main(int argc, char **argv) {
     // TODO:
     // create the message listener thread
 	pthread_t tid;
-	pthread_create(&tid, NULL, messageListener, &fifo_fd);
-
+	pthread_create(&tid, NULL, messageListener, NULL);
 
     while (1) {
 
@@ -128,10 +127,10 @@ int main(int argc, char **argv) {
 			printf("sendmsg: you have to specify target user\n");
 			continue;
 		}
-		char message[500];
-		message=strtok(NULL, "\0");
+		char* message = strtok(NULL,"\0");
 		if(message==NULL){
 			printf("sendmsg: you have to enter a message\n");
+			continue;
 		}
 		sendmsg(uName, target, message);
 
