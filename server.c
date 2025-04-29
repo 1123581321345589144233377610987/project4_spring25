@@ -31,8 +31,12 @@ int main() {
 	while (1) {
 		// TODO:
 		// read requests from serverFIFO
-		int n;
-		n=read(server,&req,sizeof(struct message));		
+		struct message req;
+		if (read(server,&req,sizeof(struct message))!=sizeof(struct message)) {
+			continue;
+			}
+		printf("Incoming messsage from %s: %s.\n",req.source,req.msg);
+	}		
 		printf("Received a request from %s to send the message %s to %s.\n",req.source,req.msg,req.target);
 
 		// TODO:
