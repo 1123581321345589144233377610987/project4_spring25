@@ -54,7 +54,9 @@ void* messageListener(void *arg) {
 			continue;
 			}
 		printf("Incoming messsage from %s: %s\n",req.source,req.msg);
+		fprintf(stderr,"rsh>");
 	}
+	close(userFIFO);
 	pthread_exit((void*)0);
 }
 
