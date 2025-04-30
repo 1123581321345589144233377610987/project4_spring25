@@ -53,8 +53,8 @@ void* messageListener(void *arg) {
 		if (read(userFIFO,&req,sizeof(struct message))!=sizeof(struct message)) {
 			continue;
 			}
-		printf("Incoming messsage from %s: %s\n",req.source,req.msg);
-		fprintf(stderr,"rsh>");
+		printf("Incoming message from %s: %s\n",req.source,req.msg);
+		//fprintf(stderr,"rsh>");
 	}
 	close(userFIFO);
 	pthread_exit((void*)0);
